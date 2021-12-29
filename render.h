@@ -2,8 +2,8 @@
 #define RENDER_H_
 
 
-#include <iostream>
 #include "surface.h"
+#include <iostream>
 
 using namespace std;
 

@@ -1,14 +1,15 @@
 #include "render.h"
 
 
-surface_list	surfaces;
-light				sun;
-image				rendered;
+surface_list surfaces;
+light sun;
+image rendered;
 
 
-image render(int width, int height, surface_list new_surfaces, light new_light) {
-	surfaces	= new_surfaces;
-	sun		= new_light;
+image render(int width, int height, surface_list new_surfaces, light new_light)
+{
+	surfaces = new_surfaces;
+	sun = new_light;
 
 	rendered.change_size(width, height);
 
@@ -18,8 +19,10 @@ image render(int width, int height, surface_list new_surfaces, light new_light) 
 
 	Ray sighting;
 
-	for (int i = 0; i <= width; ++i) {
-		for (int j = 0; j <= height; ++j) {
+	for (int i = 0; i <= width; ++i)
+	{
+		for (int j = 0; j <= height; ++j)
+		{
 			o.set(float(i), float(j), 0);
 			sighting.Set(o, d);
 			rendered.set(i, j, color(sighting));
@@ -30,26 +33,31 @@ image render(int width, int height, surface_list new_surfaces, light new_light) 
 
 
 
-RGB color(Ray sighting) {
-	RGB		black(0.0, 0.0, 0.0);
-	RGB		color;
-	surface	what;
-	hit_info	info;
-	Interval	forever;
+RGB color(Ray sighting)
+{
+	RGB black(0.0, 0.0, 0.0);
+	RGB color;
+	surface what;
+	hit_info info;
+	Interval forever;
 
 	forever.SetBottom(0);
 	forever.SetTopInfinite();
 
-	if (!surfaces.hit(sighting, forever, what, info)) {
+	if (!surfaces.hit(sighting, forever, what, info))
+	{
 		return black;
 	}
-	else {
+	else
+	{
 		color = 0.25 * info.color;
-		if (!shadow(sighting.PointAt(info.inside.Get_Bottom()))) {
+		if (!shadow(sighting.PointAt(info.inside.Get_Bottom())))
+		{
 			float modifier;
 			sun.direction = sun.direction / length(sun.direction);
 			modifier = dot(info.normal, -sun.direction);
-			if (modifier < 0) {
+			if (modifier < 0)
+			{
 				modifier = -modifier;
 			}
 			RGB L;
@@ -61,7 +69,8 @@ RGB color(Ray sighting) {
 }
 
 
-bool shadow(vector3 point) {
+bool shadow(vector3 point)
+{
 	Ray shadow_ray;
 	shadow_ray.Set(point, -sun.direction);
 

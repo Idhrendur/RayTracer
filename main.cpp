@@ -1,13 +1,14 @@
 #include <cstdlib>
 #include <iostream>
 //#include "bases.h"
-#include "surface.h"
-#include "render.h"
 #include "parser.h"
+#include "render.h"
+#include "surface.h"
 
 using namespace std;
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[])
+{
 	surface_list surfaces;
 	light sun;
 	parse("surfaces.txt", surfaces, sun);
@@ -21,9 +22,9 @@ int main(int argc, char *argv[]) {
 */
 	image rendered;
 
-//	light sun;
-//	sun.color.set(1.0, 1.0, 1.0);
-//	sun.direction.set(0.0, -1.0, 0.0);*/
+	//	light sun;
+	//	sun.color.set(1.0, 1.0, 1.0);
+	//	sun.direction.set(0.0, -1.0, 0.0);*/
 
 	rendered = render(100, 100, surfaces, sun);
 	rendered.save("yes.bmp");
